@@ -901,6 +901,15 @@ func newRunnerPodWithContainerMode(containerMode string, template corev1.Pod, ru
 		}...)
 	}
 
+	if bip := runnerSpec.DockerBIP; bip != nil && dockerdInRunner {
+		runnerContainer.Env = append(runnerContainer.Env, []corev1.EnvVar{
+			{
+				Name:  "BIP",
+				Value: fmt.Sprintf("%s", *runnerSpec.DockerBIP),
+			},
+		}...)
+	}
+
 	if len(pod.Spec.ImagePullSecrets) == 0 && len(defaultRunnerImagePullSecrets) > 0 {
 		// runner spec didn't provide custom values and default image pull secrets are provided
 		for _, imagePullSecret := range defaultRunnerImagePullSecrets {
@@ -1071,6 +1080,13 @@ func newRunnerPodWithContainerMode(containerMode string, template corev1.Pod, ru
 			dockerdContainer.Args = append(dockerdContainer.Args,
 				"--mtu",
 				fmt.Sprintf("%d", *runnerSpec.DockerMTU),
+			)
+		}
+
+		if bip := runnerSpec.DockerBIP; bip != nil {
+			dockerdContainer.Args = append(dockerdContainer.Args,
+				"--bip",
+				fmt.Sprintf("%s", *runnerSpec.DockerBIP),
 			)
 		}
 

@@ -1462,6 +1462,8 @@ spec:
                               - name
                             type: object
                           type: array
+                        dockerBIP:
+                          type: string
                         dockerMTU:
                           format: int64
                           type: integer

@@ -50,6 +50,8 @@ spec:
                   type: string
                 dockerEnabled:
                   type: boolean
+                dockerBIP:
+                  type: string
                 dockerMTU:
                   format: int64
                   type: integer

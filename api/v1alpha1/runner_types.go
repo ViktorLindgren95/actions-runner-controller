@@ -62,6 +62,8 @@ type RunnerConfig struct {
 	WorkDir string `json:"workDir,omitempty"`
 
 	// +optional
+	DockerBIP *string `json:"dockerBIP,omitempty"`
+	// +optional
 	DockerdWithinRunnerContainer *bool `json:"dockerdWithinRunnerContainer,omitempty"`
 	// +optional
 	DockerEnabled *bool `json:"dockerEnabled,omitempty"`
